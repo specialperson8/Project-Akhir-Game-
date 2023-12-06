@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5kmq7tqq67q4"]
+
+[ext_resource type="Script" path="res://Scripts/bullet_p2.gd" id="1_jirtf"]
+[ext_resource type="Script" path="res://Scripts/BulletSub2.gd" id="2_8la7c"]
+[ext_resource type="Texture2D" uid="uid://cvs8lcpnnqb8f" path="res://Sprites/proyectiles.png" id="3_13nmd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0hof4"]
+size = Vector2(8, 4)
+
+[node name="Bullet_P2" type="Node2D"]
+position = Vector2(64, 83)
+script = ExtResource("1_jirtf")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["player_bullet"]]
+position = Vector2(0, 3)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_8la7c")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+scale = Vector2(-0.8, -0.914)
+texture = ExtResource("3_13nmd")
+hframes = 7
+vframes = 2
+frame = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_0hof4")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="CharacterBody2D"]
+
+[node name="CharacterBody2D2" type="CharacterBody2D" parent="." groups=["player_bullet"]]
+position = Vector2(12, 3)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_8la7c")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D2"]
+scale = Vector2(-0.8, -0.914)
+texture = ExtResource("3_13nmd")
+hframes = 7
+vframes = 2
+frame = 8
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D2"]
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_0hof4")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="CharacterBody2D2"]
+
+[node name="CharacterBody2D3" type="CharacterBody2D" parent="." groups=["player_bullet"]]
+position = Vector2(24, 3)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_8la7c")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D3"]
+scale = Vector2(-0.8, -0.914)
+texture = ExtResource("3_13nmd")
+hframes = 7
+vframes = 2
+frame = 8
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="CharacterBody2D3"]
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_0hof4")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="CharacterBody2D3"]
+
+[connection signal="screen_exited" from="CharacterBody2D/VisibleOnScreenNotifier2D" to="CharacterBody2D" method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="screen_exited" from="CharacterBody2D2/VisibleOnScreenNotifier2D" to="CharacterBody2D2" method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="screen_exited" from="CharacterBody2D3/VisibleOnScreenNotifier2D" to="CharacterBody2D3" method="_on_visible_on_screen_notifier_2d_screen_exited"]

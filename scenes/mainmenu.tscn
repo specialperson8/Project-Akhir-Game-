@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=3 uid="uid://bexxxqqu31ta2"]
+
+[ext_resource type="Texture2D" uid="uid://tbg10oyv2eqg" path="res://Texturas/Texturas/mainmenu.png" id="1_bcb5b"]
+[ext_resource type="Script" path="res://scenes/mainmenu.gd" id="1_ehfvg"]
+[ext_resource type="Texture2D" uid="uid://c1ofyarf58t3y" path="res://Texturas/Texturas/mainmenucursor.png" id="2_f3sdk"]
+[ext_resource type="AudioStream" uid="uid://c6xdocgeumijg" path="res://BGM-SFX/01_-_Contra_-_NES_-_Title.ogg" id="4_kqsqh"]
+
+[sub_resource type="Animation" id="Animation_hlj5h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bkg:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1161, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_x33mt"]
+resource_name = "intro"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bkg:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1161, 0), Vector2(178, -3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2lvrt"]
+_data = {
+"RESET": SubResource("Animation_hlj5h"),
+"intro": SubResource("Animation_x33mt")
+}
+
+[node name="mainmenu" type="Node2D"]
+script = ExtResource("1_ehfvg")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="bkg" type="TextureRect" parent="UI"]
+offset_left = 1161.0
+offset_right = 1927.0
+offset_bottom = 651.0
+texture = ExtResource("1_bcb5b")
+
+[node name="arrow" type="Sprite2D" parent="UI"]
+position = Vector2(307, 449)
+scale = Vector2(3.375, 3.1)
+texture = ExtResource("2_f3sdk")
+
+[node name="Op1" type="Node2D" parent="UI"]
+position = Vector2(308, 448)
+
+[node name="Op2" type="Node2D" parent="UI"]
+position = Vector2(309, 494)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
+autoplay = "intro"
+libraries = {
+"": SubResource("AnimationLibrary_2lvrt")
+}
+
+[node name="bgm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_kqsqh")
+autoplay = true
