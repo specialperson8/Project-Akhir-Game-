@@ -32,7 +32,7 @@ func respawnP1():
 		lvl.add_child(newPlayer)
 		newPlayer.global_position = $SpawnPoint.global_position
 	else:
-		pass
+		get_tree().change_scene_to_file("res://scenes/mainmenu.tscn")
 		
 func respawnP2():
 	updateLives()

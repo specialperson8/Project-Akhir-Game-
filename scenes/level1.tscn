@@ -1,0 +1,201 @@
+[gd_scene load_steps=18 format=3 uid="uid://b5l4doiby4c6d"]
+
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_u76qo"]
+[ext_resource type="Texture2D" uid="uid://do3rq1wac7irw" path="res://Texturas/Texturas/1.png" id="2_hmfr2"]
+[ext_resource type="Script" path="res://Scripts/cam.gd" id="5_0aseb"]
+[ext_resource type="PackedScene" uid="uid://cg45aibxjyrpy" path="res://scenes/power_up_container.tscn" id="6_6cgo7"]
+[ext_resource type="PackedScene" uid="uid://baf116r6im2t5" path="res://scenes/enemy_1.tscn" id="7_cbvli"]
+[ext_resource type="Script" path="res://Scripts/NextLevel.gd" id="11_2jex8"]
+[ext_resource type="Script" path="res://Scripts/EnemyMachine.gd" id="11_3rrxs"]
+[ext_resource type="Texture2D" uid="uid://exdhd0pbxiei" path="res://Sprites/torreta.png" id="12_7imax"]
+[ext_resource type="Texture2D" uid="uid://d3e7at1aptrgn" path="res://Sprites/vidas.png" id="18_v7ctu"]
+[ext_resource type="FontFile" uid="uid://l5qkyo43m28e" path="res://Font/PressStart2P.ttf" id="19_bmmub"]
+[ext_resource type="AudioStream" uid="uid://buick78fh6ono" path="res://BGM-SFX/03_-_Contra_-_NES_-_Jungle.ogg" id="20_2v8y2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j2h2p"]
+size = Vector2(49, 243)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ju12q"]
+size = Vector2(310.875, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fnsur"]
+size = Vector2(145, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1ydw"]
+size = Vector2(10, 12)
+
+[sub_resource type="LabelSettings" id="LabelSettings_oe5ma"]
+font = ExtResource("19_bmmub")
+font_size = 24
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u23gi"]
+size = Vector2(3497, 30)
+
+[node name="level1" type="Node2D" groups=["main"]]
+script = ExtResource("1_u76qo")
+
+[node name="SpawnPoint" type="Node2D" parent="." groups=["spawnPoint"]]
+position = Vector2(183, 132)
+
+[node name="Level" type="Node2D" parent="." groups=["level"]]
+position = Vector2(1728, 122)
+
+[node name="background" type="Sprite2D" parent="Level"]
+texture = ExtResource("2_hmfr2")
+
+[node name="End" type="Node2D" parent="Level" groups=["end"]]
+position = Vector2(1496, -1)
+
+[node name="cam" type="Camera2D" parent="." groups=["camera"]]
+position = Vector2(234, 120)
+zoom = Vector2(2.5, 2.7)
+script = ExtResource("5_0aseb")
+
+[node name="min" type="Node2D" parent="cam"]
+position = Vector2(-202, -1)
+
+[node name="max" type="Node2D" parent="cam"]
+position = Vector2(239, -9)
+
+[node name="Area2D" type="Area2D" parent="cam"]
+position = Vector2(72, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cam/Area2D"]
+position = Vector2(45.5, 0)
+shape = SubResource("RectangleShape2D_j2h2p")
+
+[node name="NextLevel" type="Camera2D" parent="." groups=["camera"]]
+position = Vector2(3226, 118)
+zoom = Vector2(2.5, 2.7)
+script = ExtResource("11_2jex8")
+
+[node name="min" type="Node2D" parent="NextLevel"]
+position = Vector2(-202, -1)
+
+[node name="max" type="Node2D" parent="NextLevel"]
+position = Vector2(202, -14)
+
+[node name="Area2D" type="Area2D" parent="NextLevel"]
+position = Vector2(158, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NextLevel/Area2D"]
+position = Vector2(45.5, 0)
+shape = SubResource("RectangleShape2D_j2h2p")
+
+[node name="platform1" type="StaticBody2D" parent="." groups=["ground"]]
+position = Vector2(384, 113)
+collision_layer = 32769
+collision_mask = 32769
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platform1"]
+position = Vector2(-219, 55)
+shape = SubResource("RectangleShape2D_ju12q")
+
+[node name="platform2" type="StaticBody2D" parent="." groups=["ground"]]
+position = Vector2(3514, 79)
+collision_layer = 32769
+collision_mask = 32769
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platform2"]
+position = Vector2(-182.5, 41)
+shape = SubResource("RectangleShape2D_fnsur")
+
+[node name="PowerUpContainer" parent="." instance=ExtResource("6_6cgo7")]
+
+[node name="Enemy1" parent="." instance=ExtResource("7_cbvli")]
+position = Vector2(555, 148)
+
+[node name="Enemy4" parent="." instance=ExtResource("7_cbvli")]
+position = Vector2(555, 148)
+
+[node name="Enemy2" parent="." instance=ExtResource("7_cbvli")]
+position = Vector2(1012, 90)
+
+[node name="Enemy3" parent="." instance=ExtResource("7_cbvli")]
+position = Vector2(1354, 88)
+
+[node name="EnemyMachine" type="Area2D" parent="."]
+position = Vector2(1267, 151)
+script = ExtResource("11_3rrxs")
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemyMachine"]
+texture = ExtResource("12_7imax")
+hframes = 4
+frame = 3
+
+[node name="Aim" type="Node2D" parent="EnemyMachine/Sprite2D"]
+position = Vector2(13, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyMachine"]
+position = Vector2(-3, 0)
+shape = SubResource("RectangleShape2D_p1ydw")
+
+[node name="cooldown" type="Timer" parent="EnemyMachine"]
+wait_time = 3.0
+one_shot = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="EnemyMachine"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="P1-1" type="Sprite2D" parent="UI"]
+position = Vector2(60, 51)
+scale = Vector2(3, 3.1875)
+texture = ExtResource("18_v7ctu")
+hframes = 2
+
+[node name="P1-2" type="Sprite2D" parent="UI"]
+position = Vector2(91, 51)
+scale = Vector2(3, 3.1875)
+texture = ExtResource("18_v7ctu")
+hframes = 2
+
+[node name="P2-1" type="Sprite2D" parent="UI"]
+position = Vector2(1041, 47.5)
+scale = Vector2(3, 3.1875)
+texture = ExtResource("18_v7ctu")
+hframes = 2
+frame = 1
+
+[node name="P2-2" type="Sprite2D" parent="UI"]
+position = Vector2(1072, 47.5)
+scale = Vector2(3, 3.1875)
+texture = ExtResource("18_v7ctu")
+hframes = 2
+frame = 1
+
+[node name="P1_Score" type="Label" parent="UI"]
+offset_left = 119.0
+offset_top = 44.0
+offset_right = 383.0
+offset_bottom = 79.0
+text = "0000000000"
+label_settings = SubResource("LabelSettings_oe5ma")
+vertical_alignment = 1
+
+[node name="P2_Score" type="Label" parent="UI"]
+offset_left = 777.0
+offset_top = 44.0
+offset_right = 1041.0
+offset_bottom = 79.0
+text = "0000000000"
+label_settings = SubResource("LabelSettings_oe5ma")
+vertical_alignment = 1
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_2v8y2")
+autoplay = true
+
+[node name="DeadZone" type="Area2D" parent="."]
+position = Vector2(10, 254)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeadZone"]
+position = Vector2(1738.5, 5)
+shape = SubResource("RectangleShape2D_u23gi")
+
+[connection signal="body_entered" from="cam/Area2D" to="cam" method="_on_area_2d_body_entered" flags=18]
+[connection signal="body_entered" from="NextLevel/Area2D" to="NextLevel" method="_on_area_2d_body_entered" flags=18]
+[connection signal="body_entered" from="EnemyMachine" to="EnemyMachine" method="_on_body_entered" flags=18]
+[connection signal="timeout" from="EnemyMachine/cooldown" to="EnemyMachine" method="_on_cooldown_timeout" flags=18]
+[connection signal="screen_entered" from="EnemyMachine/VisibleOnScreenNotifier2D" to="EnemyMachine" method="_on_visible_on_screen_notifier_2d_screen_entered" flags=18]
+[connection signal="body_entered" from="DeadZone" to="." method="_on_dead_zone_body_entered" flags=18]
